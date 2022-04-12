@@ -65,19 +65,53 @@ class UnemploymentRate:
 
 
 @dataclass
+class PhraseTrendDay:
+    date: str
+    interest: float
+
+
+@dataclass
 class PhraseTrends:
-    interest: list[float]
+    trends: list[PhraseTrendDay]
+
+
+@dataclass
+class WeatherDay:
+    date: str
+    max_temperature_celsius: float
+    min_temperature_celsius: float
+    avg_temperature_celsius: float
+    max_wind_speed_kph: float
+    total_precipitations_mm: float
+    avg_humidity: float
+    forecast_text: str
+    uv_index: int
+    sunrise: str
+    sunset: str
+
+    def to_json(self):
+        return {
+            "date": self.date,
+            "max. temperature": f"{self.max_temperature_celsius} °C",
+            "min. temperature": f"{self.min_temperature_celsius} °C",
+            "average temperature": f"{self.avg_temperature_celsius} °C",
+            "max. wind speed": f"{self.max_wind_speed_kph} km/h",
+            "rainfall": f"{self.total_precipitations_mm} mm",
+            "humidity": f"{self.avg_humidity}%",
+            "forecast": self.forecast_text,
+            "UV index": self.uv_index,
+            "sunrise": self.sunrise,
+            "sunset": self.sunset
+        }
 
 
 @dataclass
 class Weather:
-    dates: list[datetime]
-    max_temperature: list[float]
-    # TODO
+    dates: list[WeatherDay]
 
     def items(self) -> list:
         """Returns a list of weather data for each day"""
-        return [{"date": date} for (date) in self.dates]  # TODO
+        return [date.to_json() for date in self.dates]
 
 
 @dataclass
@@ -86,8 +120,12 @@ class TrendsAndWeather:
     interests: PhraseTrends
 
     def to_json(self) -> list:
-        return [{"date": weather["date"], "interest": interest, "weather": weather["data"]}
-                for (interest, weather) in zip(self.interests.interest, self.weather.items())]
+        result = []
+        for (interests, weather_data) in zip(self.interests.trends, self.weather.items()):
+            date = weather_data.pop("date")
+            result.append({"date": date, "interest": interests.interest, "weather": weather_data})
+
+        return result
 
 
 @dataclass

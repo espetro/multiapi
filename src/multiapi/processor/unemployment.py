@@ -1,5 +1,5 @@
 import httpx
-from lxml.etree import HTML
+from lxml import html
 
 from model import UnemploymentRate, USState, AppException
 
@@ -11,7 +11,7 @@ class UnemploymentProcessor(BaseProcessor[UnemploymentRate]):
     def __init__(self, url: str):
         self.url = url
         self.store: dict = {}
-        self.current_month = None
+        self.current_month = None  # TODO: Introduce logic to update this every month
 
     def get(self, value: USState) -> UnemploymentRate:
         current_rate = self.store.get(USState.name(value))
@@ -26,15 +26,17 @@ class UnemploymentProcessor(BaseProcessor[UnemploymentRate]):
         response = httpx.get(self.url)
         response.raise_for_status()
 
-        rates, table = {}, HTML(response.text).find('body/table[@id="lauhsthl"]')
+        try:
+            rates, table = {}, html.fromstring(response.text).get_element_by_id("lauhsthl")
 
-        if table is not None:
-            self.current_month = table.find('thead/tr[@id="lauhsthl-0-1"]')
-            for row in table.findAll('tbody/tr'):
-                state_name, last_month_rate, *_ = list(row.findAll('td'))
+            self.current_month, *_ = table.find("thead/tr/th[2]").text.split(" ")
+
+            for row in table.find("tbody").getchildren():
+                state_name, last_month_rate = row.find("th/p").text, row.find("td[1]/span").text
                 rates[state_name] = last_month_rate
-        else:
-            raise AppException("Unable to parse unemployment rate table: cannot find data table")
 
-        return rates
+            return rates
+        except Exception as e:
+            raise AppException(f"Unable to parse unemployment rate table: {str(e)}")
+
 

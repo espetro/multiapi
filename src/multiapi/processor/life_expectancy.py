@@ -8,7 +8,7 @@ class LifeExpectancyProcessor(AsyncBaseProcessor[LifeExpectancy]):
 
     def __init__(self, url: str):
         self.url = url
-        self.client = httpx.AsyncClient()
+        self.client = httpx.AsyncClient(base_url=url)
 
     async def async_teardown(self):
         await self.client.aclose()
@@ -20,7 +20,7 @@ class LifeExpectancyProcessor(AsyncBaseProcessor[LifeExpectancy]):
             "year": year
         }
 
-        response = await self.client.get(self.url, params=query_parameters)
+        response = await self.client.get("/resource/w9j2-ggv5.json", params=query_parameters)
         response.raise_for_status()
 
         data = response.json()

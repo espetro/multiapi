@@ -1,23 +1,24 @@
 from typing import Optional
 from datetime import datetime, timedelta
 
-from fastapi import FastAPI
 import uvicorn
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI
 from fastapi import Request
+from fastapi.responses import JSONResponse
 
-from utils import setup_logging
+from utils import setup_logging, setup_openapi
 from model import SexType, RaceType, USState, AppException, TrendsAndWeather
 from processor import UnemploymentProcessor, LifeExpectancyProcessor, TrendsProcessor, WeatherProcessor
 
 setup_logging()
 
 unemployment = UnemploymentProcessor("https://www.bls.gov/web/laus/lauhsthl.htm")
-life_expectancy = LifeExpectancyProcessor("https://data.cdc.gov/resource/w9j2-ggv5.json")
-trends = TrendsProcessor("")
-weather = WeatherProcessor("https://www.weatherapi.com/docs/#")
+life_expectancy = LifeExpectancyProcessor("https://data.cdc.gov")
+trends = TrendsProcessor()
+weather = WeatherProcessor("http://api.weatherapi.com/v1")
 
 app = FastAPI()
+app.openapi = setup_openapi(app)
 
 
 @app.get("/health")
