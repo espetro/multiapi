@@ -1,2 +1,8 @@
 uvicorn~=0.17.6
 fastapi~=0.75.1
+httpx~=0.22.0
+respx~=0.19.2
+us~=2.0.2
+ipregistry~=3.2.0
+lxml~=4.8.0
+pytrends~=4.8.0
