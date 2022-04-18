@@ -26,6 +26,9 @@ The simplest way to run it is with `make run`, which will run the application di
 You can also run it in a Docker container with `make docker-run`, which will build a Docker image and then run it. To stop it, just close the terminal session or press CTRL+C.
 If you want to deploy it with other services, which is usually done by using a Docker Compose file (`docker-compose.yaml`), then use `make docker-run-compose`.
 
+Logging level can be set up via the environment variable `LOG_LEVEL`. The available log levels are listed in
+https://docs.python.org/3/library/logging.html#logging-levels
+
 ## How to test it
 
 ### Manual tests

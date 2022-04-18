@@ -4,5 +4,7 @@ services:
   api:
     image: "multi_api:0.1.0"
     container_name: multiapi
+    environment:
+      - LOG_LEVEL=INFO
     ports:
       - "8080:80"

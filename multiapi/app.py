@@ -1,3 +1,4 @@
+import logging
 from typing import Optional
 from datetime import date, datetime, timedelta
 
@@ -34,12 +35,15 @@ async def health_handler():
 
 @app.get("/life_expectancy/{sex}/{race}/{year}")
 async def life_expectancy_handler(sex: SexType, race: RaceType, year: int):
+    logging.info(f"Retrieving life expectancy for {race} {sex} in {year}")
     result = await life_expectancy.get(sex, race, year)
     return result
 
 
 @app.get("/unemployment/{state}")
 def unemployment_rate_handler(state: USState):
+    state_name = USState.of(state)
+    logging.info(f"Retrieving unemployment rate in {state_name} (last updated in {unemployment.last_update_date})")
     return unemployment.get(state)
 
 
@@ -50,6 +54,8 @@ def trends_interest_handler(phrase: str, start_date: Optional[date] = None, end_
     :param start_date: A date with the format YYYY-mm-dd
     :param end_date: A date with the format YYYY-mm-dd
     """
+    logging.info(f"Retrieving interest for {phrase} in the last 7 days")
+
     if start_date is None or end_date is None:
         _end_date = datetime.now()
         return trends.get(phrase, _end_date - timedelta(weeks=2), _end_date).to_json()
@@ -59,6 +65,8 @@ def trends_interest_handler(phrase: str, start_date: Optional[date] = None, end_
 
 @app.get("/trends_weather")
 async def weather_and_trends_for_last_7_days_handler(phrase: str, request: Request):
+    logging.info(f"Retrieving weather and interest for {phrase} in the last 7 days")
+
     _end_date = datetime.now()
     client_ip = get_client_ip(request)
 
@@ -69,6 +77,8 @@ async def weather_and_trends_for_last_7_days_handler(phrase: str, request: Reque
 
 @app.get("/weather")
 async def weather_for_last_7_days_handler(request: Request):
+    logging.info(f"Retrieving weather data for the last 7 days")
+
     client_ip = get_client_ip(request)
     response = await weather.get(client_ip)
     return response.items()
