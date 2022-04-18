@@ -23,7 +23,7 @@ docker-build:
 	docker build -t "${NAME}:${TAG}" .
 
 docker-run: docker-build
-	docker run -it --rm --name api -p 8080:80 multi_api:0.1.0
+	docker run --rm --name api -p 8080:80 multi_api:0.1.0
 
 docker-run-compose: docker-build
 	docker-compose up -d api
