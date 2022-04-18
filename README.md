@@ -4,7 +4,7 @@
 This is a sample REST API project written in Python which features:
 
 - A fully asynchronous API, using FastAPI. There are both async and sync endpoints.
-- A set of unit, integration, and load tests to ensure the API works and performs as expected.
+- A set of unit and integration tests to ensure the API works and performs as expected.
 - An OpenAPI schema, so that it's simpler to test the endpoints manually, and to generate clients. 
 - A dockerized version of the API along with a deployment configuration in `docker-compose.yaml`.
 
