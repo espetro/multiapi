@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
 from enum import Enum
 
 import us.states
@@ -10,6 +9,7 @@ from phantom.schema import Schema
 
 
 def _is_a_us_state(value: str) -> bool:
+    """Checks if a string is a valid US state alpha code. Examples: FL, NY, MA"""
     if len(value) == 2:
         try:
             return us.states.lookup(value) is not None
@@ -50,8 +50,8 @@ class USState(str, Phantom, predicate=_is_a_us_state):
         )
 
     @staticmethod
-    def name(state: USState) -> str:
-        return us.states.lookup(state)
+    def of(value: str) -> str:
+        return us.states.lookup(value).name
 
 
 @dataclass
@@ -73,6 +73,9 @@ class PhraseTrendDay:
 @dataclass
 class PhraseTrends:
     trends: list[PhraseTrendDay]
+
+    def to_json(self):
+        return {"interest": [_.interest for _ in self.trends]}
 
 
 @dataclass

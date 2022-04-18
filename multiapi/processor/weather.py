@@ -10,10 +10,14 @@ from .base import AsyncBaseProcessor
 
 class WeatherProcessor(AsyncBaseProcessor[Weather]):
 
-    def __init__(self, url: str):
+    ENDPOINT = "/history.xml"
+
+    def __init__(self, url: str, ip_registry_key: str, weather_api_key: str):
         self.url = url
-        self.ip_registry = IpregistryClient("1qanqdhes62xy30u")
         self.client = httpx.AsyncClient(base_url=url)
+
+        self.ip_registry = IpregistryClient(ip_registry_key)
+        self.weather_api_key = weather_api_key
 
     async def async_teardown(self):
         await self.client.aclose()
@@ -24,15 +28,15 @@ class WeatherProcessor(AsyncBaseProcessor[Weather]):
         for date in [start_date - timedelta(days=n) for n in range(7)]:
             date_str = date.strftime("%Y-%m-%d")
             query_parameters = {
-                "key": "8922824f4009452591b104033221204",
+                "key": self.weather_api_key,
                 "q": location,
                 "dt": date_str
             }
 
-            response = await self.client.get("/history.xml", params=query_parameters)
+            response = await self.client.get(self.ENDPOINT, params=query_parameters)
             response.raise_for_status()
 
-            day_data = self.parse(date_str, response.text)
+            day_data = self.parse(date_str, response.content)
             weather_data.append(day_data)
 
         return Weather(weather_data)
@@ -42,7 +46,7 @@ class WeatherProcessor(AsyncBaseProcessor[Weather]):
         return f"{ip_info.location['latitude']},{ip_info.location['longitude']}"
 
     @staticmethod
-    def parse(date: str, xml_input: str) -> WeatherDay:
+    def parse(date: str, xml_input: bytes) -> WeatherDay:
         root = etree.fromstring(xml_input)
         day_data = root.find("forecast/forecastday/day")
         astro_data = root.find("forecast/forecastday/astro")

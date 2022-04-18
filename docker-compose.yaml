@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  api:
+    image: "multi_api:0.1.0"
+    container_name: multiapi
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: curl http://localhost:8080/health

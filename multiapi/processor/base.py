@@ -22,7 +22,7 @@ class BaseProcessor(Generic[T], ABC):
     def get(self, *_) -> T:
         ...
 
-    def parse(self):
+    def parse(self) -> Optional[Any]:
         """Extracts and parses data from the given URL. This method must be overridden for use case (1)"""
         return None
 
@@ -34,7 +34,7 @@ class AsyncBaseProcessor(Generic[T], ABC):
 
     async def async_teardown(self):
         """Utility method that gets called in the asyncio loop upon the app's shutdown"""
-        pass
+        ...
 
     @abstractmethod
     async def get(self, *_) -> T:

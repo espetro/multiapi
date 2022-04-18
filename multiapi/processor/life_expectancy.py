@@ -6,6 +6,8 @@ from .base import AsyncBaseProcessor
 
 class LifeExpectancyProcessor(AsyncBaseProcessor[LifeExpectancy]):
 
+    ENDPOINT = "/resource/w9j2-ggv5.json"
+
     def __init__(self, url: str):
         self.url = url
         self.client = httpx.AsyncClient(base_url=url)
@@ -20,7 +22,7 @@ class LifeExpectancyProcessor(AsyncBaseProcessor[LifeExpectancy]):
             "year": year
         }
 
-        response = await self.client.get("/resource/w9j2-ggv5.json", params=query_parameters)
+        response = await self.client.get(self.ENDPOINT, params=query_parameters)
         response.raise_for_status()
 
         data = response.json()

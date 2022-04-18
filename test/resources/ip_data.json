@@ -1,0 +1,157 @@
+{
+  "ip": "0.0.0.0",
+  "type": "IPv4",
+  "hostname": "None",
+  "carrier": {
+    "name": "movistar",
+    "mcc": "1",
+    "mnc": "1"
+  },
+  "company": {
+    "domain": "telefonica.es",
+    "name": "Telefonica De Espana",
+    "type": "isp"
+  },
+  "connection": {
+    "asn": 3000,
+    "domain": "telefonica.es",
+    "organization": "TELEFONICA DE ESPANA",
+    "route": "80.13.0.0/16",
+    "type": "isp"
+  },
+  "currency": {
+    "code": "EUR",
+    "name": "Euro",
+    "name_native": "euro",
+    "plural": "euros",
+    "plural_native": "euros",
+    "symbol": "€",
+    "symbol_native": "€",
+    "format": {
+      "negative": {
+        "prefix": "-",
+        "suffix": "\xa0€"
+      },
+      "positive": {
+        "prefix": "",
+        "suffix": "\xa0€"
+      }
+    }
+  },
+  "location": {
+    "continent": {
+      "code": "EU",
+      "name": "Europe"
+    },
+    "country": {
+      "area": 504782,
+      "borders": [
+        "AD",
+        "FR",
+        "GI",
+        "MA",
+        "PT"
+      ],
+      "calling_code": "34",
+      "capital": "Madrid",
+      "code": "ES",
+      "name": "Spain",
+      "population": 47351567,
+      "population_density": 93.81,
+      "flag": {
+        "emoji": "🇪🇸",
+        "emoji_unicode": "U+1F1EA U+1F1F8",
+        "emojitwo": "https://cdn.ipregistry.co/flags/emojitwo/es.svg",
+        "noto": "https://cdn.ipregistry.co/flags/noto/es.png",
+        "twemoji": "https://cdn.ipregistry.co/flags/twemoji/es.svg",
+        "wikimedia": "https://cdn.ipregistry.co/flags/wikimedia/es.svg"
+      },
+      "languages": [
+        {
+          "code": "es",
+          "name": "Spanish",
+          "native": "español"
+        },
+        {
+          "code": "ca",
+          "name": "Catalan",
+          "native": "català"
+        },
+        {
+          "code": "gl",
+          "name": "Galician",
+          "native": "galego"
+        },
+        {
+          "code": "eu",
+          "name": "Basque",
+          "native": "euskara"
+        },
+        {
+          "code": "oc",
+          "name": "Occitan",
+          "native": "Occitan"
+        }
+      ],
+      "tld": ".es"
+    },
+    "region": {
+      "code": "ES-VC",
+      "name": "Valenciana"
+    },
+    "city": "Valencia",
+    "postal": "46006",
+    "latitude": 39.46,
+    "longitude": -0.36,
+    "language": {
+      "code": "es",
+      "name": "Spanish",
+      "native": "español"
+    },
+    "in_eu": "True"
+  },
+  "security": {
+    "is_abuser": "False",
+    "is_attacker": "False",
+    "is_bogon": "False",
+    "is_cloud_provider": "False",
+    "is_proxy": "False",
+    "is_relay": "False",
+    "is_tor": "False",
+    "is_tor_exit": "False",
+    "is_vpn": "False",
+    "is_anonymous": "False",
+    "is_threat": "False"
+  },
+  "time_zone": {
+    "id": "Europe/Madrid",
+    "abbreviation": "CET",
+    "current_time": "2022-04-17T10:00:28+02:00",
+    "name": "Central European Standard Time",
+    "offset": 7200,
+    "in_daylight_saving": "True"
+  },
+  "user_agent": {
+    "header": "Ipregistry/Python3/3.2.0",
+    "name": "Ipregistry",
+    "type": "special",
+    "version": "Python3",
+    "version_major": "Python3",
+    "device": {
+      "brand": "None",
+      "name": "None",
+      "type": "None"
+    },
+    "engine": {
+      "name": "None",
+      "type": "None",
+      "version": "None",
+      "version_major": "None"
+    },
+    "os": {
+      "name": "None",
+      "type": "None",
+      "version": "None"
+    }
+  }
+}
