@@ -24,7 +24,7 @@ async def test_health(app_client):
 @pytest.mark.integration_test
 async def test_life_expectancy(app_client):
     response = await app_client.get(f"life_expectancy/{SexType.female}/{RaceType.white}/1998")
-    assert response.json() == {"average_life_expectancy": 83}
+    assert response.json() == {'average_life_expectancy': 80.0}
 
 
 @pytest.mark.asyncio

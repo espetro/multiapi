@@ -6,7 +6,7 @@ install-requirements:
 	pip3 install -r requirements.txt
 
 run:
-	cd multiapi && uvicorn --reload --port 8080 app:app
+	cd multiapi && uvicorn --reload --host 0.0.0.0 --port 8080 app:app
 
 tests:
 	pytest -m "not integration_test"
@@ -23,4 +23,7 @@ docker-build:
 	docker build -t "${NAME}:${TAG}" .
 
 docker-run: docker-build
+	docker run -it --rm --name api -p 8080:80 multi_api:0.1.0
+
+docker-run-compose: docker-build
 	docker-compose up -d api

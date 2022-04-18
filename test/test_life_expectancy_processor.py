@@ -18,7 +18,7 @@ async def test_get_life_expectancy_for_white_men_in_1990():
     sex, race, year = SexType.male, RaceType.white, 1990
 
     url = _build_url(url, sex, race, year)
-    expected_response = Response(200, json={"average_life_expectancy": 70})
+    expected_response = Response(200, json=[{"average_life_expectancy": 70}])
     _ = respx.get(url).mock(return_value=expected_response)
 
     result = await processor.get(sex, race, year)

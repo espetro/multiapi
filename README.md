@@ -41,7 +41,3 @@ By running `make tests`.
 ### Integration tests
 
 By running `make integration-tests`.
-
-### Load tests
-
-By running `make load-tests`.

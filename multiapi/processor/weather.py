@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
-from lxml import etree
 import httpx
+from lxml import etree
 from ipregistry import IpregistryClient
 
 from model import Weather, WeatherDay
