@@ -8,13 +8,13 @@ def setup_openapi(app: FastAPI):
             return app.openapi_schema
 
         openapi_schema = get_openapi(
-            title="Fortris Technical Interview App",
+            title="Rocket App",
             version="0.1.0",
             description="An OpenAPI schema to fetch data from multiple services",
             routes=app.routes,
         )
         openapi_schema["info"]["x-logo"] = {
-            "url": "https://www.fortris.com/wp-content/uploads/2021/07/fortris-logo.svg"
+            "url": "https://cdn.icon-icons.com/icons2/1234/PNG/512/1492719123-rocket_83625.png"
         }
         app.openapi_schema = openapi_schema
         return app.openapi_schema
