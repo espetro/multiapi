@@ -6,7 +6,7 @@ install-requirements:
 	pip3 install -r requirements.txt
 
 run:
-	cd multiapi && uvicorn --reload --host 0.0.0.0 --port 8080 app:app
+	cd multiapi && uvicorn --workers 9 --host 0.0.0.0 --port 8080 app:app  # workers = 2 * number_of_cores + 1
 
 tests:
 	pytest -m "not integration_test"
@@ -18,6 +18,9 @@ tests-coverage:
 
 integration-tests:
 	pytest -m "integration_test"
+
+load-tests:
+	locust -f test/test_load  # This test is a manual one
 
 docker-build:
 	docker build -t "${NAME}:${TAG}" .

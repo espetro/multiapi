@@ -13,7 +13,7 @@ from processor import UnemploymentProcessor, LifeExpectancyProcessor, TrendsProc
 
 setup_logging()
 
-weather = WeatherProcessor("http://api.weatherapi.com/v1", config("IP_REGISTRY_KEY"), config("WEATHER_API_KEY"))
+weather = WeatherProcessor("http://api.weatherapi.com/v1", config("IP_REGISTRY_KEY", ""), config("WEATHER_API_KEY", ""))
 unemployment = UnemploymentProcessor("https://www.bls.gov/web/laus/lauhsthl.htm")
 trends = TrendsProcessor()
 life_expectancy = LifeExpectancyProcessor("https://data.cdc.gov")
@@ -54,12 +54,15 @@ def trends_interest_handler(phrase: str, start_date: Optional[date] = None, end_
     :param start_date: A date with the format YYYY-mm-dd
     :param end_date: A date with the format YYYY-mm-dd
     """
-    logging.info(f"Retrieving interest for {phrase} in the last 7 days")
 
     if start_date is None or end_date is None:
         _end_date = datetime.now()
-        return trends.get(phrase, _end_date - timedelta(weeks=2), _end_date).to_json()
+        _start_date = _end_date - timedelta(weeks=2)
+
+        logging.info(f"Retrieving interest for {phrase} between {_start_date} and {_end_date}")
+        return trends.get(phrase, _start_date, _end_date).to_json()
     else:
+        logging.info(f"Retrieving interest for {phrase} between {start_date} and {end_date}")
         return trends.get(phrase, start_date, end_date).to_json()
 
 

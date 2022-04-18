@@ -17,6 +17,8 @@ This is a sample REST API project written in Python which features:
   - `IP_REGISTRY_KEY` with the API key for https://ipregistry.co/
   - `WEATHER_API_KEY` with the API key for https://www.weatherapi.com/
 
+You can omit the `.env` file, but don't expect the _Weather_ endpoints to work if so.
+
 As for the Python packages required, make sure to create a virtual environment and activate it, 
 and then run `make install-requirements`. 
 
@@ -43,3 +45,12 @@ By running `make tests`.
 ### Integration tests
 
 By running `make integration-tests`.
+
+### Load tests
+
+Load tests are performed manually by running `make run` and then `make load-tests`. Then, go to localhost:8089 and set
+the following values:
+  
+- Number of users: 100
+- Spawn rate: 5
+- Host: http://localhost:8080

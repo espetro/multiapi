@@ -1,4 +1,4 @@
-uvicorn~=0.17.6
+uvicorn[standard]~=0.17.6
 fastapi~=0.75.1
 httpx~=0.22.0
 respx~=0.19.2
@@ -11,3 +11,4 @@ responses~=0.20.0
 coverage~=6.3.2
 pytest~=7.1.1
 python-decouple~=3.6
+locust~=2.8.6
